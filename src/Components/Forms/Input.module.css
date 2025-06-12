@@ -17,7 +17,7 @@
 .input:hover {
   outline: none;
   border-color: #fb1;
-  background: #fff;
+  background: white;
   box-shadow: 0 0 0 3px #fea;
 }
 
