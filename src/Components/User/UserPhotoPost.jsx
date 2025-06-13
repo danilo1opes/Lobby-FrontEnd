@@ -44,8 +44,8 @@ const UserPhotoPost = () => {
     <section className={`${styles.photoPost} animeLeft`}>
       <form onSubmit={handleSubmit}>
         <Input label="Nome" type="text" name="nome" {...nome} />
-        <Input label="Peso" type="number" name="nome" {...peso} />
-        <Input label="Idade" type="text" name="nome" {...idade} />
+        <Input label="Peso" type="number" name="peso" {...peso} />
+        <Input label="Idade" type="number" name="idade" {...idade} />
         <input
           className={styles.file}
           type="file"
@@ -54,7 +54,7 @@ const UserPhotoPost = () => {
           onChange={handleImgChange}
         />
         {loading ? (
-          <Button disabled>Carregando</Button>
+          <Button disabled>Enviando...</Button>
         ) : (
           <Button>Enviar</Button>
         )}
@@ -64,7 +64,7 @@ const UserPhotoPost = () => {
         {img.preview && (
           <div
             className={styles.preview}
-            style={{ backgroundImage: `url(${img.preview})` }}
+            style={{ backgroundImage: `url('${img.preview}')` }}
           ></div>
         )}
       </div>
