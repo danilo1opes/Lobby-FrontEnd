@@ -51,7 +51,7 @@
   align-items: center;
 }
 
-.author a {
+.author a:hover {
   text-decoration: underline;
 }
 
