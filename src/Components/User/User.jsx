@@ -11,12 +11,18 @@ import Head from '../Helper/Head';
 const User = () => {
   const { data } = React.useContext(UserContext);
 
+  React.useEffect(() => {
+    if (!data || !data.id) {
+      console.warn('Usuário não logado ou ID ausente:', data);
+    }
+  }, [data]);
+
   return (
     <section className="container">
       <Head title="Minha Conta" />
       <UserHeader />
       <Routes>
-        <Route path="/" element={<Feed user={data.id} />} />
+        <Route path="/" element={<Feed user={data?.id} />} />
         <Route path="postar" element={<UserPhotoPost />} />
         <Route path="estatisticas" element={<UserStats />} />
         <Route path="*" element={<NotFound />} />

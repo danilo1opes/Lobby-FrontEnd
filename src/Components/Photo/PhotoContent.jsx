@@ -10,10 +10,21 @@ const PhotoContent = ({ data, single }) => {
   const user = React.useContext(UserContext);
   const { photo, comments } = data;
 
+  React.useEffect(() => {
+    console.log('PhotoContent - Dados:', data);
+  }, [data]);
+
+  if (!photo) return null;
+
+  const imageSrc = photo.src || '';
+  if (!imageSrc) {
+    console.warn('PhotoContent - URL da imagem ausente:', photo);
+  }
+
   return (
     <div className={`${styles.photo} ${single ? styles.single : ''}`}>
       <div className={styles.img}>
-        <Image src={photo.src} alt={photo.title} />
+        <Image src={imageSrc} alt={photo.title || 'Foto'} />
       </div>
       <div className={styles.details}>
         <div>

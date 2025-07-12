@@ -13,16 +13,22 @@ const UserPhotoPost = () => {
   const nome = useForm();
   const peso = useForm('number');
   const idade = useForm('number');
-  const [img, setImg] = React.useState({});
+  const [img, setImg] = React.useState({ preview: null, raw: null });
   const { data, error, loading, request } = useFetch();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (data) navigate('/conta');
+    if (data && data.photo) {
+      navigate('/conta');
+    }
   }, [data, navigate]);
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (!img.raw) {
+      console.error('Nenhuma imagem selecionada');
+      return;
+    }
     const formData = new FormData();
     formData.append('img', img.raw);
     formData.append('nome', nome.value);
@@ -31,14 +37,18 @@ const UserPhotoPost = () => {
 
     const token = window.localStorage.getItem('token');
     const { url, options } = PHOTO_POST(formData, token);
-    request(url, options);
+    request(url, options).catch((err) => {
+      console.error('Erro no upload:', err);
+    });
   }
 
   function handleImgChange({ target }) {
-    setImg({
-      preview: URL.createObjectURL(target.files[0]),
-      raw: target.files[0],
-    });
+    if (target.files && target.files[0]) {
+      setImg({
+        preview: URL.createObjectURL(target.files[0]),
+        raw: target.files[0],
+      });
+    }
   }
 
   return (
@@ -53,6 +63,7 @@ const UserPhotoPost = () => {
           type="file"
           name="img"
           id="img"
+          accept="image/*"
           onChange={handleImgChange}
         />
         {loading ? (
@@ -69,6 +80,7 @@ const UserPhotoPost = () => {
             style={{ backgroundImage: `url('${img.preview}')` }}
           ></div>
         )}
+        {!img.preview && <p>Selecione uma imagem para pré-visualizar</p>}
       </div>
     </section>
   );

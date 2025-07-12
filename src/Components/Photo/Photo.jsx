@@ -12,8 +12,13 @@ const Photo = () => {
   const { data, loading, error, request } = useFetch();
 
   React.useEffect(() => {
-    const { url, options } = PHOTO_GET(id);
-    request(url, options);
+    if (id) {
+      const { url, options } = PHOTO_GET(id);
+      console.log('Photo - Requisição:', { url, options });
+      request(url, options).then(() => {
+        console.log('Photo - Resposta:', data);
+      });
+    }
   }, [request, id]);
 
   if (error) return <Error error={error} />;
@@ -25,7 +30,7 @@ const Photo = () => {
         <PhotoContent single={true} data={data} />
       </section>
     );
-  else return null;
+  return null;
 };
 
 export default Photo;
