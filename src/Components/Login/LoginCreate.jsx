@@ -14,17 +14,28 @@ const LoginCreate = () => {
   const password = useForm();
 
   const { userLogin } = React.useContext(UserContext);
-  const { loading, error, request } = useFetch();
+  const { loading, error, request, data } = useFetch();
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const { url, options } = USER_POST({
-      username: username.value,
-      email: email.value,
-      password: password.value,
-    });
-    const { response } = await request(url, options);
-    if (response.ok) userLogin(username.value, password.value);
+    if (username.validate() && email.validate() && password.validate()) {
+      const { url, options } = USER_POST({
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      });
+      console.log('Requisição:', { url, options });
+      const { json, response } = await request(url, options);
+      if (response && [200, 201].includes(response.status)) {
+        console.log('Sucesso:', json);
+        userLogin(username.value, password.value);
+      } else {
+        console.error(
+          'Erro na requisição:',
+          json?.error || response?.statusText,
+        );
+      }
+    }
   }
 
   return (
@@ -40,7 +51,7 @@ const LoginCreate = () => {
         ) : (
           <Button>Cadastrar</Button>
         )}
-        <Error error={error} />
+        <Error error={error || (data?.error && `Erro: ${data.error}`)} />
       </form>
     </section>
   );

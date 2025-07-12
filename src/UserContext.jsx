@@ -21,10 +21,16 @@ export const UserStorage = ({ children }) => {
 
   async function getUser(token) {
     const { url, options } = USER_GET(token);
+    console.log('getUser - Requisição:', { url, options });
     const response = await fetch(url, options);
     const json = await response.json();
-    setData(json);
-    setLogin(true);
+    console.log('getUser - Resposta:', json);
+    if (response.ok) {
+      setData(json);
+      setLogin(true);
+    } else {
+      throw new Error(json?.error || `Erro: ${response.statusText}`);
+    }
   }
 
   async function userLogin(username, password) {
@@ -32,9 +38,13 @@ export const UserStorage = ({ children }) => {
       setError(null);
       setLoading(true);
       const { url, options } = TOKEN_POST({ username, password });
+      console.log('userLogin - Requisição:', { url, options });
       const tokenRes = await fetch(url, options);
-      if (!tokenRes.ok) throw new Error(`Error: ${tokenRes.statusText}`);
-      const { token } = await tokenRes.json();
+      const tokenJson = await tokenRes.json();
+      console.log('userLogin - Resposta:', tokenJson);
+      if (!tokenRes.ok)
+        throw new Error(tokenJson?.error || `Erro: ${tokenRes.statusText}`);
+      const { token } = tokenJson;
       window.localStorage.setItem('token', token);
       await getUser(token);
       navigate('/conta');
@@ -54,7 +64,10 @@ export const UserStorage = ({ children }) => {
           setError(null);
           setLoading(true);
           const { url, options } = TOKEN_VALIDATE_POST(token);
+          console.log('autoLogin - Requisição:', { url, options });
           const response = await fetch(url, options);
+          const json = await response.json();
+          console.log('autoLogin - Resposta:', json);
           if (!response.ok) throw new Error('Token inválido');
           await getUser(token);
         } catch (err) {

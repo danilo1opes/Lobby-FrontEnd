@@ -13,7 +13,9 @@ const FeedPhotos = ({ page, user, setModalPhoto, setInfinite }) => {
     async function fetchPhotos() {
       const total = 6;
       const { url, options } = PHOTOS_GET({ page, total, user });
+      console.log('FeedPhotos - Requisição:', { url, options });
       const { response, json } = await request(url, options);
+      console.log('FeedPhotos - Resposta:', json);
       if (response && response.ok && json.length < total) setInfinite(false);
     }
     fetchPhotos();
@@ -21,7 +23,7 @@ const FeedPhotos = ({ page, user, setModalPhoto, setInfinite }) => {
 
   if (error) return <Error error={error} />;
   if (loading) return <Loading />;
-  if (data)
+  if (data && Array.isArray(data)) {
     return (
       <ul className={`${styles.feed} animeLeft`}>
         {data.map((photo) => (
@@ -33,7 +35,14 @@ const FeedPhotos = ({ page, user, setModalPhoto, setInfinite }) => {
         ))}
       </ul>
     );
-  else return null;
+  } else {
+    return (
+      <p>
+        Erro: Dados das fotos não carregados ou inválidos. Data:{' '}
+        {JSON.stringify(data)}
+      </p>
+    );
+  }
 };
 
 export default FeedPhotos;

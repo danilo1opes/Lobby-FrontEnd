@@ -13,7 +13,13 @@ const useFetch = () => {
       setLoading(true);
       response = await fetch(url, options);
       json = await response.json();
-      if (response.ok === false) throw new Error(json.message);
+      if (![200, 201].includes(response.status)) {
+        const errorMessage =
+          json?.error ||
+          json?.message ||
+          `Erro: ${response.status} - ${response.statusText}`;
+        throw new Error(errorMessage);
+      }
     } catch (err) {
       json = null;
       setError(err.message);

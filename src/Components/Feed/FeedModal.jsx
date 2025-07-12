@@ -10,8 +10,19 @@ const FeedModal = ({ photo, setModalPhoto }) => {
   const { data, error, loading, request } = useFetch();
 
   React.useEffect(() => {
-    const { url, options } = PHOTO_GET(photo.id);
-    request(url, options);
+    if (photo?.id) {
+      const { url, options } = PHOTO_GET(photo.id);
+      console.log('FeedModal - Requisição:', { url, options });
+      request(url, options)
+        .then(() => {
+          console.log('FeedModal - Resposta:', data);
+        })
+        .catch((err) => {
+          console.error('FeedModal - Erro na requisição:', err);
+        });
+    } else {
+      console.log('FeedModal - Erro: photo.id inválido', photo);
+    }
   }, [photo, request]);
 
   function handleOutsideClick(event) {
@@ -22,7 +33,7 @@ const FeedModal = ({ photo, setModalPhoto }) => {
     <div className={styles.modal} onClick={handleOutsideClick}>
       {error && <Error error={error} />}
       {loading && <Loading />}
-      {data && <PhotoContent data={data} />}
+      {data && data.photo ? <PhotoContent data={data} /> : null}
     </div>
   );
 };
