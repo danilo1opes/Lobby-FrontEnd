@@ -34,6 +34,8 @@
 
 .img {
   grid-row: 1/4;
+  height: 100%;
+  width: 100%;
 }
 
 .single .img {
