@@ -1,6 +1,6 @@
 import React from 'react';
 import UserHeader from './UserHeader';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Feed from '../Feed/Feed';
 import UserPhotoPost from './UserPhotoPost';
 import UserStats from './UserStats';
@@ -10,16 +10,19 @@ import Head from '../Helper/Head';
 
 const User = () => {
   const { data } = React.useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
-    if (!data || !data.id) {
-      console.warn('Usuário não logado ou ID ausente:', data);
+    if (data && data.username && location.pathname === '/conta') {
+      console.log('Redirecionando de /conta para /', data.username);
+      navigate(`/${data.username}`, { replace: true });
     }
-  }, [data]);
+  }, [data, navigate, location.pathname]);
 
   return (
     <section className="container">
-      <Head title="Minha Conta" />
+      <Head title={data?.username || 'Minha Conta'} />
       <UserHeader />
       <Routes>
         <Route path="/" element={<Feed user={data?.id} />} />
