@@ -2,7 +2,8 @@ import React from 'react';
 
 const types = {
   email: {
-    regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    regex:
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     message: 'Preencha um email válido',
   },
   password: {
@@ -21,7 +22,7 @@ const useForm = (type) => {
   const [error, setError] = React.useState(null);
 
   function validate(value) {
-    if (type === false) return true;
+    if (type === false || !types[type]) return true;
     if (value.length === 0) {
       setError('Preencha um valor.');
       return false;
@@ -35,8 +36,10 @@ const useForm = (type) => {
   }
 
   function onChange({ target }) {
-    if (error) validate(target.value);
-    setValue(target.value);
+    const newValue = target.value;
+    if (error) validate(newValue);
+    setValue(newValue);
+    console.log(`Valor atualizado para ${target.name}:`, newValue);
   }
 
   return {
