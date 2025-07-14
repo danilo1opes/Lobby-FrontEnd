@@ -83,6 +83,7 @@
   font-weight: bold;
   margin-top: 1rem;
   margin-bottom: 2rem;
+  gap: 1rem;
 }
 
 .attributes li {
@@ -93,5 +94,6 @@
 
 .attributes li::before {
   content: '|';
+  margin: 0;
   color: #333;
 }
