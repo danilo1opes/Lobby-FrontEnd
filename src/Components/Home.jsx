@@ -7,7 +7,7 @@ const Home = () => {
     <section className="container mainContainer">
       <Head
         title="Fotos"
-        description="Home do site Lobby, com o feed de fotos."
+        description="Coloque aqui os seus melhores Personagens..."
       />
       <Feed />
     </section>

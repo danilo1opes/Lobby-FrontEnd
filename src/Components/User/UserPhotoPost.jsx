@@ -11,15 +11,19 @@ import Head from '../Helper/Head';
 
 const UserPhotoPost = () => {
   const nome = useForm();
-  const peso = useForm('number');
-  const idade = useForm('number');
+  const personagem = useForm();
+  const epoca = useForm();
   const [img, setImg] = React.useState({ preview: null, raw: null });
   const { data, error, loading, request } = useFetch();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (data && data.photo) {
-      navigate('/conta');
+    if (data) {
+      console.log('Resposta completa do servidor:', data);
+      if (data.photo) {
+        console.log('Dados da foto:', data.photo);
+        navigate('/conta');
+      }
     }
   }, [data, navigate]);
 
@@ -29,11 +33,23 @@ const UserPhotoPost = () => {
       console.error('Nenhuma imagem selecionada');
       return;
     }
+
+    console.log('Valores do formulário:', {
+      nome: nome.value,
+      personagem: personagem.value,
+      epoca: epoca.value,
+    });
+
     const formData = new FormData();
     formData.append('img', img.raw);
     formData.append('nome', nome.value);
-    formData.append('peso', peso.value);
-    formData.append('idade', idade.value);
+    formData.append('personagem', personagem.value);
+    formData.append('epoca', epoca.value);
+
+    // Log do FormData para depuração
+    for (let pair of formData.entries()) {
+      console.log('FormData enviado:', pair[0], pair[1]);
+    }
 
     const token = window.localStorage.getItem('token');
     const { url, options } = PHOTO_POST(formData, token);
@@ -55,9 +71,14 @@ const UserPhotoPost = () => {
     <section className={`${styles.photoPost} animeLeft`}>
       <Head title="Poste sua foto" />
       <form onSubmit={handleSubmit}>
-        <Input label="Nome" type="text" name="nome" {...nome} />
-        <Input label="Peso" type="number" name="peso" {...peso} />
-        <Input label="Idade" type="number" name="idade" {...idade} />
+        <Input label="Nome do Jogo" type="text" name="nome" {...nome} />
+        <Input
+          label="Nome do Personagem"
+          type="text"
+          name="personagem"
+          {...personagem}
+        />
+        <Input label="Época do Jogo" type="text" name="epoca" {...epoca} />
         <input
           className={styles.file}
           type="file"
