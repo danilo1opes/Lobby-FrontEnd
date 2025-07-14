@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import Gamer from '../Assets/gamer-footer.svg?react';
+import Gamer from '../Assets/fav.svg?react';
 
 const Footer = () => {
   return (

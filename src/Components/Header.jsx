@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import Gamer from '../Assets/game.svg?react';
+import Gamer from '../Assets/favHeader.svg?react';
 import { UserContext } from '../UserContext';
 
 const Header = () => {
