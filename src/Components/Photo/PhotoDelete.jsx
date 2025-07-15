@@ -14,10 +14,14 @@ const PhotoDelete = ({ id }) => {
       const { url, options } = PHOTO_DELETE(id);
       const { response } = await request(url, options);
       if (response.ok) {
-        if (data && data.username) {
-          window.location.href = `/${data.username}`;
+        const username =
+          localStorage.getItem('username') ||
+          JSON.parse(localStorage.getItem('user'))?.username;
+
+        if (username) {
+          window.location.href = `/perfil/${username}`;
         } else {
-          window.location.href = '/perfil';
+          window.location.href = '/Nyxmusic';
         }
       }
     }
