@@ -21,7 +21,7 @@ const PhotoDelete = ({ id }) => {
         if (username) {
           window.location.href = `/perfil/${username}`;
         } else {
-          window.location.href = '/Nyxmusic';
+          window.location.href = '/conta';
         }
       }
     }
