@@ -21,7 +21,7 @@ const PhotoDelete = ({ id }) => {
         if (username) {
           window.location.href = `/perfil/${username}`;
         } else {
-          window.location.href = '/conta';
+          window.location.href = 'https://nyxlobby.vercel.app/';
         }
       }
     }
