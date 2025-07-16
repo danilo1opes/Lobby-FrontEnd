@@ -1,5 +1,5 @@
 import React from 'react';
-import './chartConfig';
+import './ChartConfig';
 import StatsCards from './StatsCards';
 import {
   DoughnutChart,
