@@ -1,0 +1,150 @@
+.statsCards {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.statCard {
+  background: linear-gradient(135deg, #2b2b2b 0%, #000000 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+}
+
+.statCard h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statNumber {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.topPhoto {
+  grid-column: 1 / -1;
+  background: #8503f1;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.topPhoto h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.photoTitle {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #66fcf1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.photoAccess {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ccc;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+  .statsCards {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .statCard {
+    padding: 1rem;
+  }
+
+  .statNumber {
+    font-size: 2rem;
+  }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+  .statsCards {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .statCard {
+    padding: 0.8rem;
+  }
+
+  .statCard h3 {
+    font-size: 0.8rem;
+  }
+
+  .statNumber {
+    font-size: 1.8rem;
+  }
+
+  .topPhoto {
+    padding: 1rem;
+  }
+
+  .photoTitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Responsividade para celulares muito pequenos */
+@media (max-width: 320px) {
+  .statsCards {
+    grid-template-columns: 1fr;
+  }
+
+  .statCard {
+    padding: 0.6rem;
+  }
+
+  .statNumber {
+    font-size: 1.5rem;
+  }
+}
+
+/* Hover effects para desktop */
+@media (min-width: 769px) {
+  .topPhoto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+}
+
+/* Acessibilidade */
+.statCard:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* Ajustes para impressão */
+@media print {
+  .statCard,
+  .topPhoto {
+    background: #f5f5f5 !important;
+    color: #333 !important;
+  }
+}

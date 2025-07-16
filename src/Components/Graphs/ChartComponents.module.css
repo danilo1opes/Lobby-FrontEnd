@@ -1,0 +1,146 @@
+.graphItem {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+}
+
+.chartTitle {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #2d3436;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.chartContainer {
+  flex: 1;
+  position: relative;
+  min-height: 280px;
+}
+
+.infoCard {
+  grid-column: 1 / -1;
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.infoCard p {
+  margin: 0.5rem 0;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.infoCard strong {
+  color: #2d3436;
+}
+
+.noData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.noData p {
+  margin: 0;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+  .graphItem {
+    min-height: 300px;
+    padding: 1rem;
+  }
+
+  .chartContainer {
+    min-height: 240px;
+  }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+  .graphItem {
+    min-height: 280px;
+    padding: 0.8rem;
+  }
+
+  .chartContainer {
+    min-height: 220px;
+  }
+
+  .chartTitle {
+    font-size: 1rem;
+  }
+
+  .infoCard {
+    padding: 1rem;
+  }
+
+  .infoCard p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsividade para celulares muito pequenos */
+@media (max-width: 320px) {
+  .graphItem {
+    min-height: 250px;
+    padding: 0.6rem;
+  }
+
+  .chartContainer {
+    min-height: 200px;
+  }
+}
+
+/* Hover effects para desktop */
+@media (min-width: 769px) {
+  .graphItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+}
+
+/* Acessibilidade */
+.graphItem:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Ajustes para impressão */
+@media print {
+  .graphItem {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .infoCard {
+    background: white !important;
+    border-left: 4px solid #333 !important;
+  }
+}
+
+/* Ajustes específicos para gráficos Chart.js */
+.chartContainer canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Otimizações para performance */
+.chartContainer {
+  contain: layout style paint;
+}
