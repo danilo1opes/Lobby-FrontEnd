@@ -6,7 +6,6 @@
   width: 100%;
 }
 
-/* Responsividade para tablets */
 @media (max-width: 768px) {
   .graph {
     grid-template-columns: 1fr;
