@@ -12,7 +12,7 @@ import {
   calculateStats,
   prepareChartData,
   getVisibleCharts,
-} from './chartDataUtils';
+} from './ChartDataUtils';
 import styles from './UserStatsGraphs.module.css';
 
 const UserStatsGraphs = ({ data }) => {
